@@ -1,0 +1,72 @@
+version: '3'
+services:
+  mongo:
+    image: "mongo:3.4"
+    command: mongod --port 27018
+    ports:
+      - "27018:27018"
+    expose:
+      - "27018"
+  rabbit:
+    image: "rabbitmq:3-management"
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+  storage:
+    # build: https://github.com/webautotester/storage.git
+    image: "wchen001/wt_storage"
+    ports:
+      - "8085:8085"
+    depends_on:
+      - "mongo"
+  scheduler:
+    # build: https://github.com/webautotester/scheduler.git
+    image: "wchen001/wt_scheduler"
+    ports:
+      - "8090:8090"
+    depends_on:
+      - "rabbit"
+      - "mongo"
+  player1:
+    # build: https://github.com/webautotester/player.git
+    image: "wchen001/wt_player"
+    volumes:
+      - screens:/tmp/run/screen
+    depends_on:
+      - "rabbit"
+      - "mongo"
+  player2:
+    # build: https://github.com/webautotester/player.git
+    image: "wchen001/wt_player"
+    volumes:
+      - screens:/tmp/run/screen
+    depends_on:
+      - "rabbit"
+      - "mongo"
+
+  player3:
+    image: "wchen001/wt_player"
+    volumes:
+      - screens:/tmp/run/screen
+    depends_on:
+      - "rabbit"
+      - "mongo"   
+  player4:
+    image: "wchen001/wt_player"
+    volumes:
+      - screens:/tmp/run/screen
+    depends_on:
+      - "rabbit"
+      - "mongo"
+  player5:
+    image: "wchen001/wt_player"
+    volumes:
+      - screens:/tmp/run/screen
+    depends_on:
+      - "rabbit"
+      - "mongo"
+
+volumes:
+  screens:
+     
+   
