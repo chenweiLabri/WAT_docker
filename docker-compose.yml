@@ -12,13 +12,15 @@ services:
     ports:
       - "5672:5672"
       - "15672:15672"
-  # store:
-  #   # build: https://github.com/webAutomaticTest/store.git
-  #   image: "wchen001/store"
-  #   ports:
-  #     - "8086:8086"
-  #   depends_on:
-  #     - "mongo"
+    expose:
+      - "5672"
+  store:
+    # build: https://github.com/webAutomaticTest/store.git
+    image: "wchen001/store"
+    ports:
+      - "8086:8086"
+    depends_on:
+      - "mongo"
   storage:
     # build: https://github.com/webautotester/storage.git
     image: "wchen001/wt_storage"
@@ -35,21 +37,23 @@ services:
       - "rabbit"
       - "mongo"
   # scheduler_crawl:
-  #   # build: https://github.com/webAutomaticTest/schedulerToCrawl.git
+  #   # build: https://github.com/webautotester/scheduler.git
   #   image: "wchen001/wt_scheduler_crawl"
   #   ports:
   #     - "8091:8091"
   #   depends_on:
   #     - "rabbit"
   #     - "mongo"
-  # crawler:
-  #   # build: https://github.com/webautotester/player.git
-  #   image: "wchen001/wt_crawler"
-  #   volumes:
-  #     - screens:/tmp/crawl/screen
-  #   depends_on:
-  #     - "rabbit"
-  #     - "mongo"
+  crawler:
+    # build: https://github.com/webautotester/player.git
+    image: "wchen001/wt_crawler"
+    ports:
+      - "8091:8091"
+    volumes:
+      - screens:/tmp/crawl/screen
+    depends_on:
+      - "rabbit"
+      - "mongo"
   player1:
     # build: https://github.com/webautotester/player.git
     image: "wchen001/wt_player"
