@@ -32,23 +32,13 @@ services:
     # build: https://github.com/webautotester/scheduler.git
     image: "wchen001/wt_scheduler"
     ports:
-      - "8090:8090"
+      - "8091:8091"
     depends_on:
       - "rabbit"
-      - "mongo"
-  # scheduler_crawl:
-  #   # build: https://github.com/webautotester/scheduler.git
-  #   image: "wchen001/wt_scheduler_crawl"
-  #   ports:
-  #     - "8091:8091"
-  #   depends_on:
-  #     - "rabbit"
-  #     - "mongo"
+      - "mongo"  
   crawler:
     # build: https://github.com/webautotester/player.git
     image: "wchen001/wt_crawler"
-    ports:
-      - "8091:8091"
     volumes:
       - screens:/tmp/crawl/screen
     depends_on:
@@ -62,36 +52,36 @@ services:
     depends_on:
       - "rabbit"
       - "mongo"
-  player2:
-    # build: https://github.com/webautotester/player.git
-    image: "wchen001/wt_player"
-    volumes:
-      - screens:/tmp/run/screen
-    depends_on:
-      - "rabbit"
-      - "mongo"
+  # player2:
+  #   # build: https://github.com/webautotester/player.git
+  #   image: "wchen001/wt_player"
+  #   volumes:
+  #     - screens:/tmp/run/screen
+  #   depends_on:
+  #     - "rabbit"
+  #     - "mongo"
 
-  player3:
-    image: "wchen001/wt_player"
-    volumes:
-      - screens:/tmp/run/screen
-    depends_on:
-      - "rabbit"
-      - "mongo"   
-  player4:
-    image: "wchen001/wt_player"
-    volumes:
-      - screens:/tmp/run/screen
-    depends_on:
-      - "rabbit"
-      - "mongo"
-  player5:
-    image: "wchen001/wt_player"
-    volumes:
-      - screens:/tmp/run/screen
-    depends_on:
-      - "rabbit"
-      - "mongo"
+  # player3:
+  #   image: "wchen001/wt_player"
+  #   volumes:
+  #     - screens:/tmp/run/screen
+  #   depends_on:
+  #     - "rabbit"
+  #     - "mongo"   
+  # player4:
+  #   image: "wchen001/wt_player"
+  #   volumes:
+  #     - screens:/tmp/run/screen
+  #   depends_on:
+  #     - "rabbit"
+  #     - "mongo"
+  # player5:
+  #   image: "wchen001/wt_player"
+  #   volumes:
+  #     - screens:/tmp/run/screen
+  #   depends_on:
+  #     - "rabbit"
+  #     - "mongo"
 
 volumes:
   screens:
